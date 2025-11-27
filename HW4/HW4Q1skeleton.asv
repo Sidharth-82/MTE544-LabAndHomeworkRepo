@@ -142,14 +142,8 @@ for k = 1:Nsteps
 end
 
 figure;
-sgtitle('Belief Evolution Over Time');
-ylabel('Belief Probability');
 for i = 1:Nsteps+1
     subplot(Nsteps+1,1,i);plot(bel(i,:)');
-    grid on;
-    xlabel('State');
-
-    title(['Time Step ', num2str(i-1)]);
+    t
 end
-
 

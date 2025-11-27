@@ -46,6 +46,15 @@ while ~isequal(prior_node, goal)
     x = mincost(1,1);
     y = mincost(1,2);
 
+    % % Find linear index of minimum open cost
+    % [minval, linidx] = min(open_costs(:));
+    % % If no finite open cell, break
+    % if isinf(minval)
+    %     break
+    % end
+    % [x, y] = ind2sub(size(open_costs), linidx);
+
+
     % Break the loop if there are no more open cells
     if open_costs(x,y) == Inf
       break
@@ -56,8 +65,16 @@ while ~isequal(prior_node, goal)
     closed(x,y) = 1;
 
     % Update costs and prior nodes for the neighbors
-    neighbors = {};
-    %%%%%%% Complete code here (c) %%%%%%%%%
+    neighbors = get_neighbors(prior_node, size(omap));
+    for i = 1:length(neighbors)
+        neighbor = neighbors{i};
+        edge_cost = get_edge_cost(prior_node, neighbor, omap);
+        new_cost = costs(prior_node(1), prior_node(2)) + edge_cost;
+        if new_cost < costs(neighbor(1), neighbor(2))
+            costs(neighbor(1), neighbor(2)) = new_cost;
+            priors{neighbor(1), neighbor(2)} = [prior_node(1), prior_node(2), new_cost];
+        end
+    end
     
     % Visualize the cells that have already been expanded
     plot_expanded(prior_node, start, goal)
@@ -92,6 +109,14 @@ plot_costs(costs)
 function neighbors = get_neighbors(current_cell, omap_size)
     neighbors = {};
     %%%%%%% Complete code here (a) %%%%%%%%%
+    directions = [-1,-1; -1,0; -1,1; 0,-1; 0,1; 1,-1; 1,0; 1,1];
+    for i = 1:8
+        nx = current_cell(1) + directions(i,1);
+        ny = current_cell(2) + directions(i,2);
+        if nx >= 1 && nx <= omap_size(1) && ny >= 1 && ny <= omap_size(2)
+            neighbors{end+1} = [nx, ny];
+        end
+    end
 end
 
 %   Calculate the cost to move from prior_node to current_node.
@@ -103,6 +128,11 @@ end
 %   edge_cost: calculated cost
 function edge_cost = get_edge_cost(prior_node, current_node, omap)  
     %%%%%%% Complete code here (b) %%%%%%%%%
+    if omap(current_node(1), current_node(2)) <= 0.05
+        edge_cost = norm(current_node - prior_node);
+    else
+        edge_cost = Inf;
+    end
 end
 
 %%%%%% Plotting functions %%%%%%
