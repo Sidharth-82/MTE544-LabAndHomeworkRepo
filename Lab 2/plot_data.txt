@@ -1,0 +1,6 @@
+python plot_errors.py --plot_type e_edot_t --files "Part 4\linear_errors.csv" "Part 5\0.4P\angular_errors.csv" "Part 5\0.4P\linear_errors.csv" "Part 5\0.8P\angular_errors.csv" "Part 5\0.8P\linear_errors.csv" "Part 5\PID_GOOD\angular_errors.csv" "Part 5\PID_GOOD\linear_errors.csv" "Part 5\PID_BAD\angular_errors.csv" "Part 5\PID_BAD\linear_errors.csv"
+python plot_errors.py --plot_type x_y_th_t --files "Part 5\0.4P\robot_pose.csv" "Part 5\0.8P\robot_pose.csv"  "Part 5\PID_GOOD\robot_pose.csv" "Part 5\PID_BAD\robot_pose.csv"
+python plot_errors.py --plot_type x_y --files "Part 5\0.4P\robot_pose.csv" "Part 5\0.8P\robot_pose.csv"  "Part 5\PID_GOOD\robot_pose.csv" "Part 5\PID_BAD\robot_pose.csv"
+python plot_errors.py --plot_type e_edot --files "Part 4\linear_errors.csv" "Part 5\0.4P\angular_errors.csv" "Part 5\0.4P\linear_errors.csv" "Part 5\0.8P\angular_errors.csv" "Part 5\0.8P\linear_errors.csv" "Part 5\PID_GOOD\angular_errors.csv" "Part 5\PID_GOOD\linear_errors.csv" "Part 5\PID_BAD\angular_errors.csv" "Part 5\PID_BAD\linear_errors.csv"
+
+python plot_errors.py --plot_type x_y --files "Part6 Parabolla\robot_pose.csv" "Part6 Sigmoid\robot_pose.csv"
