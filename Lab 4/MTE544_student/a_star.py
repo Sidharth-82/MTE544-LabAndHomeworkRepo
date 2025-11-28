@@ -2,6 +2,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 from math import sqrt
 
+# Global flag to set heuristic type: 'euclidean' or 'manhattan'
+HEURISTIC_TYPE = 'euclidean'
+
+def euclidean_distance(p1, p2):
+    return sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+
+def manhattan_distance(p1, p2):
+    return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+
+def get_heuristic(p1, p2):
+    if HEURISTIC_TYPE == 'euclidean':
+        return euclidean_distance(p1, p2)
+    elif HEURISTIC_TYPE == 'manhattan':
+        return manhattan_distance(p1, p2)
+    else:
+        raise ValueError("Invalid HEURISTIC_TYPE. Choose 'euclidean' or 'manhattan'")
+
 
 class Node:
     """
@@ -74,7 +91,7 @@ def search(maze, start, end):
     # Use None as parent if not defined
     start_node = Node(None, start)
     start_node.g = 0     # cost from start Node
-    start_node.h = sqrt((start[0] - end[0])**2 + (start[1] - end[1])**2)     # heuristic estimated cost to end Node (Euclidean distance)
+    start_node.h = get_heuristic(start, end)     # heuristic estimated cost to end Node
     start_node.f = start_node.g + start_node.h
 
     end_node = Node(None, end)
@@ -191,8 +208,8 @@ def search(maze, start, end):
 
             # TODO PART 4 Create the f, g, and h values
             child.g = current_node.g + sqrt((child.position[0] - current_node.position[0])**2 + (child.position[1] - current_node.position[1])**2)
-            # Heuristic costs calculated here, this is using eucledian distance
-            child.h = sqrt((child.position[0] - end_node.position[0])**2 + (child.position[1] - end_node.position[1])**2)
+            # Heuristic costs calculated here
+            child.h = get_heuristic(child.position, end_node.position)
 
             child.f = child.g + child.h
 

@@ -147,7 +147,7 @@ ylabel('Belief Probability');
 for i = 1:Nsteps+1
     subplot(Nsteps+1,1,i);plot(bel(i,:)');
     grid on;
-    xlabel('State');
+    xlabel('Position');
 
     title(['Time Step ', num2str(i-1)]);
 end
